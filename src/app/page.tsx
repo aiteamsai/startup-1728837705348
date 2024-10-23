@@ -1,49 +1,38 @@
-import { Fragment } from 'react';
-import { GetStaticPropsContext } from 'next';
-import Head from 'next/head';
+// src/app/page.tsx
+import React from 'react';
+import { GetServerSideProps } from 'next';
+import moment from 'moment';
 
-export default function Home() {
+// CSS styling managed in respective component
+import 'tailwindcss/tailwind.css';
+
+// Server Component which can fetch the necessary data
+export default function VeganNetwork({ welcomeMessage }) {
   return (
-    <Fragment>
-      <Head>
-        <title>Vegan Network</title>
-        <meta name="description" content="Join the Vegan Network - a community for vegans to connect, share and learn." />
-      </Head>
+    <main className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className="flex flex-col items-center">
+        <h1 className="text-6xl font-bold">Welcome to Vegan Network</h1>
+        <p className="mt-3 text-2xl">
+          Connect, share plant-based recipes, and recommend vegan-friendly restaurants. Discover your vegan community.
+        </p>
 
-      <main className="flex flex-col items-center justify-center min-h-screen py-2">
-        <div className="flex flex-col items-center justify-center min-h-screen text-2xl">
-          {/* Hero Section */}
-          <section className="flex flex-col items-center justify-center space-y-4">
-            <h1 className="text-5xl">Join the Vegan Network</h1>
-            <h2 className="text-3xl">Connect, Share and Learn</h2>
-          </section>
-
-          {/* Features/Benefits Section */}
-          <section className="flex flex-col space-y-4">
-            <h3 className="text-4xl">Features</h3>
-            <ul>
-              <li>Profile Customization</li>
-              <li>Share Plant-Based Recipes</li>
-              <li>Recommend Vegan-Friendly Restaurants</li>
-              <li>Discuss Animal Welfare Issues</li>
-              <li>Product Review System</li>
-              <li>Community Challenges</li>
-            </ul>
-          </section>
-
-          {/* Call to Action Section */}
-          <section className="flex flex-col items-center justify-center space-y-4">
-            <h4 className="text-3xl">Join Us Now</h4>
-            <button className="px-5 py-3 bg-blue-500 rounded-lg text-white">Sign Up</button>
-          </section>
+        <div className="mt-8">
+          <button className="px-5 py-3 font-bold text-white bg-green-500 rounded hover:bg-green-600">Join Now</button>
         </div>
-      </main>
-    </Fragment>
-  )
+
+        <p className="mt-8 text-xl">{welcomeMessage}</p>
+      </div>
+    </main>
+  );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  return {
-    props: {},
-  }
-}
+// Server Side Rendering
+export const getServerSideProps: GetServerSideProps = async () => {
+  const welcomeMessage= await getData();
+  return { props: { welcomeMessage } };
+};
+
+// This would be an asynchronous fetch request in a real project
+const getData = async () => {
+  return `Congratulations! You are visiting us on ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
+};

@@ -1,38 +1,48 @@
-// src/pages/index.tsx
+// 'use client' is not added since we are not using any React hooks in this component
+
 import { NextPage } from 'next';
+import Image from 'next/image';
 
-const IndexPage: NextPage = () => {
-    return (
-        <div>
-            {/* Hero section */}
-            <section className="text-center py-20 bg-blue-500 text-white">
-                <h1 className="text-5xl font-bold">A social network for Vegans</h1>
-                <p className="text-lg mt-4">Connect, share recipes, recommend restaurants, discuss issues</p>
-            </section>
+const Home: NextPage = () => {
+  return (
+    <div className="bg-gray-100 text-gray-800">
+      <section className="text-center py-20">
+        <h1 className="text-5xl font-bold mb-4">Welcome to Veganicity</h1>
+        <p className="text-xl">The social network dedicated to vegans. Connect, share and learn in a like-minded community.</p>
+        <Image
+          src="/vegan_social.jpg"
+          height={500}
+          width={600}
+          alt="Vegan Social Network"
+          className="my-5"
+        />
+      </section>
 
-            {/* Features/Benefits section */}
-            <section className="py-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div>
-                    <h2 className="text-2xl font-bold">Profile Customization</h2>
-                    <p>Customize your profile to reflect your personality and share your vegan story with the community.</p>
-                </div>
-                <div>
-                    <h2 className="text-2xl font-bold">Photo Sharing</h2>
-                    <p>Share your most delicious vegan recipes with the rest of us.</p>
-                </div>
-                <div>
-                    <h2 className="text-2xl font-bold">Product Review System</h2>
-                    <p>Share and discover reviews about vegan-friendly restaurant and products.</p>
-                </div>
-            </section>
-
-            {/* Call to action section */}
-            <section className="py-20 text-center bg-green-600 text-white">
-                <h2 className="text-4xl font-bold mb-4">Join our vegan community today!</h2>
-                <button className="px-8 py-3 bg-white text-green-600 font-bold rounded">Get Started</button>
-            </section>
+      <section className="text-center py-20 bg-white">
+        <h2 className="text-3xl font-bold mb-4">Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div>
+              <h3 className="text-2xl mb-3">Connect</h3>
+              <p>Find and connect with other vegans around the globe.</p>
+            </div>
+            <div>
+              <h3 className="text-2xl mb-3">Share</h3>
+              <p>Share your favorite plant-based recipes and exciting finds.</p>
+            </div>
+            <div>
+              <h3 className="text-2xl mb-3">Learn</h3>
+              <p>Join discussions on different topics and learn more about the vegan lifestyle.</p>
+            </div>
         </div>
-    );
+      </section>
+
+      <section className="text-center py-20">
+        <h2 className="text-3xl font-bold mb-4">Join Us Today</h2>
+        <p className="text-xl mb-5">Become part of the biggest vegan community on the internet.</p>
+        <button className="px-14 py-4 text-white bg-green-600 rounded-full hover:bg-green-500">Create Account</button>
+      </section>
+    </div>
+  );
 };
 
-export default IndexPage;
+export default Home;

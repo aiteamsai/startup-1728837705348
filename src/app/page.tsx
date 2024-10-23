@@ -1,48 +1,49 @@
-// 'use client' is not added since we are not using any React hooks in this component
+import { Fragment } from 'react';
+import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 
-import { NextPage } from 'next';
-import Image from 'next/image';
-
-const Home: NextPage = () => {
+export default function Home() {
   return (
-    <div className="bg-gray-100 text-gray-800">
-      <section className="text-center py-20">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Veganicity</h1>
-        <p className="text-xl">The social network dedicated to vegans. Connect, share and learn in a like-minded community.</p>
-        <Image
-          src="/vegan_social.jpg"
-          height={500}
-          width={600}
-          alt="Vegan Social Network"
-          className="my-5"
-        />
-      </section>
+    <Fragment>
+      <Head>
+        <title>Vegan Network</title>
+        <meta name="description" content="Join the Vegan Network - a community for vegans to connect, share and learn." />
+      </Head>
 
-      <section className="text-center py-20 bg-white">
-        <h2 className="text-3xl font-bold mb-4">Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div>
-              <h3 className="text-2xl mb-3">Connect</h3>
-              <p>Find and connect with other vegans around the globe.</p>
-            </div>
-            <div>
-              <h3 className="text-2xl mb-3">Share</h3>
-              <p>Share your favorite plant-based recipes and exciting finds.</p>
-            </div>
-            <div>
-              <h3 className="text-2xl mb-3">Learn</h3>
-              <p>Join discussions on different topics and learn more about the vegan lifestyle.</p>
-            </div>
+      <main className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div className="flex flex-col items-center justify-center min-h-screen text-2xl">
+          {/* Hero Section */}
+          <section className="flex flex-col items-center justify-center space-y-4">
+            <h1 className="text-5xl">Join the Vegan Network</h1>
+            <h2 className="text-3xl">Connect, Share and Learn</h2>
+          </section>
+
+          {/* Features/Benefits Section */}
+          <section className="flex flex-col space-y-4">
+            <h3 className="text-4xl">Features</h3>
+            <ul>
+              <li>Profile Customization</li>
+              <li>Share Plant-Based Recipes</li>
+              <li>Recommend Vegan-Friendly Restaurants</li>
+              <li>Discuss Animal Welfare Issues</li>
+              <li>Product Review System</li>
+              <li>Community Challenges</li>
+            </ul>
+          </section>
+
+          {/* Call to Action Section */}
+          <section className="flex flex-col items-center justify-center space-y-4">
+            <h4 className="text-3xl">Join Us Now</h4>
+            <button className="px-5 py-3 bg-blue-500 rounded-lg text-white">Sign Up</button>
+          </section>
         </div>
-      </section>
+      </main>
+    </Fragment>
+  )
+}
 
-      <section className="text-center py-20">
-        <h2 className="text-3xl font-bold mb-4">Join Us Today</h2>
-        <p className="text-xl mb-5">Become part of the biggest vegan community on the internet.</p>
-        <button className="px-14 py-4 text-white bg-green-600 rounded-full hover:bg-green-500">Create Account</button>
-      </section>
-    </div>
-  );
-};
-
-export default Home;
+export async function getStaticProps(context: GetStaticPropsContext) {
+  return {
+    props: {},
+  }
+}

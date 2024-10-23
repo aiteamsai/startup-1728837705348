@@ -1,71 +1,38 @@
-// src/app/page.tsx
+// src/pages/index.tsx
+import { NextPage } from 'next';
 
-import type { NextPage } from 'next';
-import Image from 'next/image';
-import { useState } from 'react';
+const IndexPage: NextPage = () => {
+    return (
+        <div>
+            {/* Hero section */}
+            <section className="text-center py-20 bg-blue-500 text-white">
+                <h1 className="text-5xl font-bold">A social network for Vegans</h1>
+                <p className="text-lg mt-4">Connect, share recipes, recommend restaurants, discuss issues</p>
+            </section>
 
-interface User {
-  name: string;
-  profilePic: string;
-  sharedRecipes: string[];
-  recommendedRestaurants: string[];
-}
+            {/* Features/Benefits section */}
+            <section className="py-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <h2 className="text-2xl font-bold">Profile Customization</h2>
+                    <p>Customize your profile to reflect your personality and share your vegan story with the community.</p>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold">Photo Sharing</h2>
+                    <p>Share your most delicious vegan recipes with the rest of us.</p>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold">Product Review System</h2>
+                    <p>Share and discover reviews about vegan-friendly restaurant and products.</p>
+                </div>
+            </section>
 
-interface Review {
-  title: string;
-  user: User;
-  rating: number;
-  content: string;
-}
-
-const Page: NextPage = () => {
-  const [reviews, setReviews] = useState<Review[]>([]);
-
-  return (
-    <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-      <h3 className="text-lg leading-6 font-medium text-gray-900">
-        Vegan Network
-      </h3>
-      <p className="mt-1 max-w-2xl text-sm text-gray-500">
-        Connect, Share &amp; Engage
-      </p>
-
-      <div className="mt-5">
-        {reviews.map((review) => (
-          <div key={review.title} className="flex items-start space-x-3">
-            <div className="flex-shrink-0">
-              <div className="relative">
-                <Image
-                  className="h-10 w-10 rounded-full"
-                  src={review.user.profilePic}
-                  alt=""
-                  width={40}
-                  height={40}
-                />
-              </div>
-            </div>
-            <div className="min-w-0 flex-1">
-              <p>
-                <span className="text-sm font-medium text-gray-900">
-                  {review.user.name}
-                </span>
-                <span className="text-sm text-gray-500">
-                  {' '}
-                  reviewed {review.title}
-                </span>
-              </p>
-              <div className="mt-0.5 text-sm text-gray-900">
-                {Array(review.rating)
-                  .fill('⭐️')
-                  .join('')}
-              </div>
-              <p className="mt-1 text-sm text-gray-500">{review.content}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+            {/* Call to action section */}
+            <section className="py-20 text-center bg-green-600 text-white">
+                <h2 className="text-4xl font-bold mb-4">Join our vegan community today!</h2>
+                <button className="px-8 py-3 bg-white text-green-600 font-bold rounded">Get Started</button>
+            </section>
+        </div>
+    );
 };
 
-export default Page;
+export default IndexPage;

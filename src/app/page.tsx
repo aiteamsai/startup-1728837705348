@@ -1,38 +1,49 @@
-// src/app/page.tsx
-import React from 'react';
-import { GetServerSideProps } from 'next';
-import moment from 'moment';
+// src/pages/index.tsx
+import { useState } from 'react';
 
-// CSS styling managed in respective component
-import 'tailwindcss/tailwind.css';
+// Client-side Interactive Component
+'use client';
+const NewsletterSignupSection = () => {
+  const [email, setEmail] = useState('');
 
-// Server Component which can fetch the necessary data
-export default function VeganNetwork({ welcomeMessage }) {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    // make API call here
+    console.log(`Submitting email ${email}`);
+    setEmail('');
+  };
+
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-2">
-      <div className="flex flex-col items-center">
-        <h1 className="text-6xl font-bold">Welcome to Vegan Network</h1>
-        <p className="mt-3 text-2xl">
-          Connect, share plant-based recipes, and recommend vegan-friendly restaurants. Discover your vegan community.
-        </p>
+    <section className="p-6">
+      <h2 className="text-lg font-semibold">Join our Newsletter</h2>
+      <form onSubmit={onSubmit} className="mt-4">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border p-2 rounded"
+          placeholder="Enter your email"
+        />
+        <button className="ml-2 py-2 px-4 bg-green-500 text-white rounded">Submit</button>
+      </form>
+    </section>
+  );
+};
 
-        <div className="mt-8">
-          <button className="px-5 py-3 font-bold text-white bg-green-500 rounded hover:bg-green-600">Join Now</button>
-        </div>
-
-        <p className="mt-8 text-xl">{welcomeMessage}</p>
-      </div>
+// Server-side Landing Page Component
+export default function HomePage() {
+  return (
+    <main className="min-h-screen bg-green-100">
+      <section className="text-center py-20">
+        <h1 className="text-5xl font-bold">Welcome to VeganFlow</h1>
+        <p className="mt-8 text-xl">Join a dedicated community for vegans to connect, share &amp; learn.</p>
+      </section>
+      
+      <NewsletterSignupSection />
+      
+      <footer className="border-t p-6 text-center">
+        <p>&copy; 2022 VeganFlow, All rights reserved.</p>
+      </footer>
     </main>
   );
 }
-
-// Server Side Rendering
-export const getServerSideProps: GetServerSideProps = async () => {
-  const welcomeMessage= await getData();
-  return { props: { welcomeMessage } };
-};
-
-// This would be an asynchronous fetch request in a real project
-const getData = async () => {
-  return `Congratulations! You are visiting us on ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
-};

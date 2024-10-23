@@ -1,8 +1,10 @@
 // src/pages/index.tsx
-import { useState } from 'react';
 
 // Client-side Interactive Component
 'use client';
+
+import { useState } from 'react';
+
 const NewsletterSignupSection = () => {
   const [email, setEmail] = useState('');
 

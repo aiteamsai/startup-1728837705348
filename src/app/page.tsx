@@ -1,33 +1,47 @@
-import { NextRouter, useRouter } from 'next/router';
-import React, { ReactElement } from 'react';
+import { InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
+import React from 'react'
 
-export default function Home(): ReactElement {
-  const router: NextRouter = useRouter();
+type Post = {
+  author: string
+  content: string
+}
 
-  const goToCommunity = (): void => {
-    router.push('/community');
-  };
+export const getServerSideProps = async () => {
+  const res = await fetch('https://api.vegan-network.com/posts')
+  const posts: Post[] = await res.json()
 
-  const goToMarketplace = (): void => {
-    router.push('/marketplace');
-  };
+  if (!posts) {
+    return {
+      notFound: true,
+    }
+  }
 
-  const goToRecipes = (): void => {
-    router.push('/recipes');
-  };
+  return {
+    props: { posts }, 
+  }
+}
 
-  const goToRestaurantLocator = (): void => {
-    router.push('/restaurant-locator');
-  };
+function VeganNetworkingPage({ 
+  posts 
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>
-      <h1>Welcome to VeganMate</h1>
-      <p>Your one-stop platform exclusively designed for vegans.</p>
-      <button onClick={goToCommunity}>Community Forum</button>
-      <button onClick={goToMarketplace}>Vegan Marketplace</button>
-      <button onClick={goToRecipes}>Recipes & Blogs</button>
-      <button onClick={goToRestaurantLocator}>Restaurant Locator</button>
+      <h1>Vegan Networking</h1>
+      {posts.map((post) => (
+        <div key={post.author}>
+          <h2>{post.author}</h2>
+          <p>{post.content}</p>
+        </div>
+      ))}
     </div>
-  );
+  )
 }
+
+export default VeganNetworkingPage

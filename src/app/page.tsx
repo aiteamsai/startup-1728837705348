@@ -1,20 +1,35 @@
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-const VeganConnection: NextPage = () => {
-  const router = useRouter()
+const DiscussPost = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [post, setPost] = useState<object | null>(null);
 
-  // The router.query object will contain the URL parameters.
-  // You can use this to fetch data relevant to your page, for example.
+  useEffect(() => {
+    async function fetchPost() {
+      const response = await fetch(`/api/discuss/${id}`);
+      const data = await response.json();
+      setPost(data);
+    }
+
+    if (id) {
+      fetchPost();
+    }
+  }, [id]);
 
   return (
     <div>
-      <h1>Welcome to Vegan Connection</h1>
-      <p>Use our tool to find the best vegan restaurants, share your recipes, coordinate events and much more!</p>
-      <button onClick={() => router.push('/mvp')}>Check out our MVP</button>
-      <button onClick={() => router.push('/products')}>Browse vegan products</button>
+      {post ? (
+        <>
+          <h1>{post.title}</h1>
+          <p>{post.content}</p>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default VeganConnection
+export default DiscussPost;

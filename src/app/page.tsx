@@ -1,47 +1,38 @@
-import { InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
-import React from 'react'
+import React from 'react';
+import { useRouter } from 'next/router';
 
-type Post = {
-  author: string
-  content: string
-}
+// Type for user
+type User = {
+  id: number;
+  username: string;
+  isVegan: boolean;
+};
 
-export const getServerSideProps = async () => {
-  const res = await fetch('https://api.vegan-network.com/posts')
-  const posts: Post[] = await res.json()
+const VeganSocialNetwork: React.FC = () => {
+  const router = useRouter();
 
-  if (!posts) {
-    return {
-      notFound: true,
-    }
-  }
+  // Assuming we get the user details from a API/service
+  // Just created an example object for this exercise
+  const user: User = {
+    id: 1,
+    username: 'vegan01',
+    isVegan: true,
+  };
 
-  return {
-    props: { posts }, 
-  }
-}
-
-function VeganNetworkingPage({ 
-  posts 
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter()
-
-  if (router.isFallback) {
-    return <div>Loading...</div>
+  // Redirection if not a vegan
+  if (!user.isVegan) {
+    router.push('/');
   }
 
   return (
     <div>
-      <h1>Vegan Networking</h1>
-      {posts.map((post) => (
-        <div key={post.author}>
-          <h2>{post.author}</h2>
-          <p>{post.content}</p>
-        </div>
-      ))}
+      <h1>Welcome to Vegan Social Network, {user.username}!</h1>
+      <p>
+        Here you can find vegan-friendly restaurants, share recipes, engage in discussions, 
+        and coordinate events with other vegans.
+      </p>
     </div>
-  )
-}
+  );
+};
 
-export default VeganNetworkingPage
+export default VeganSocialNetwork;

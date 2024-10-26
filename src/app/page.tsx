@@ -1,38 +1,20 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 
-// Type for user
-type User = {
-  id: number;
-  username: string;
-  isVegan: boolean;
-};
+const VeganConnection: NextPage = () => {
+  const router = useRouter()
 
-const VeganSocialNetwork: React.FC = () => {
-  const router = useRouter();
-
-  // Assuming we get the user details from a API/service
-  // Just created an example object for this exercise
-  const user: User = {
-    id: 1,
-    username: 'vegan01',
-    isVegan: true,
-  };
-
-  // Redirection if not a vegan
-  if (!user.isVegan) {
-    router.push('/');
-  }
+  // The router.query object will contain the URL parameters.
+  // You can use this to fetch data relevant to your page, for example.
 
   return (
     <div>
-      <h1>Welcome to Vegan Social Network, {user.username}!</h1>
-      <p>
-        Here you can find vegan-friendly restaurants, share recipes, engage in discussions, 
-        and coordinate events with other vegans.
-      </p>
+      <h1>Welcome to Vegan Connection</h1>
+      <p>Use our tool to find the best vegan restaurants, share your recipes, coordinate events and much more!</p>
+      <button onClick={() => router.push('/mvp')}>Check out our MVP</button>
+      <button onClick={() => router.push('/products')}>Browse vegan products</button>
     </div>
-  );
-};
+  )
+}
 
-export default VeganSocialNetwork;
+export default VeganConnection

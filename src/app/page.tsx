@@ -1,35 +1,15 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+// app/page.tsx
+import React from 'react';
 
-const DiscussPost = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [post, setPost] = useState<object | null>(null);
-
-  useEffect(() => {
-    async function fetchPost() {
-      const response = await fetch(`/api/discuss/${id}`);
-      const data = await response.json();
-      setPost(data);
-    }
-
-    if (id) {
-      fetchPost();
-    }
-  }, [id]);
-
+export default function Home() {
   return (
-    <div>
-      {post ? (
-        <>
-          <h1>{post.title}</h1>
-          <p>{post.content}</p>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-green-100">
+      <h1 className="text-4xl font-bold text-green-800">
+        Welcome to Vegan Social Network!
+      </h1>
+      <p className="mt-4 text-lg text-green-600">
+        Connect with like-minded people and share your vegan journey!
+      </p>
+    </main>
   );
-};
-
-export default DiscussPost;
+}
